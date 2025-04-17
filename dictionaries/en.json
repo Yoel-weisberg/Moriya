@@ -1,0 +1,60 @@
+{
+  "metadata": {
+    "title": "Massage Therapy | Relaxation & Wellness",
+    "description": "Professional massage therapy services in Israel. Experience relaxation and wellness through therapeutic massage techniques."
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "testimonials": "Testimonials",
+    "contact": "Contact",
+    "switchToEnglish": "English",
+    "switchToHebrew": "עברית"
+  },
+  "hero": {
+    "title": "Find Peace and Relaxation",
+    "subtitle": "Professional massage therapy to rejuvenate your body and mind",
+    "cta": "Book a Session"
+  },
+  "about": {
+    "title": "About Me",
+    "content": [
+      "Welcome to my massage therapy practice. I specialize in providing a calm and healing environment where you can escape the stresses of everyday life.",
+      "With years of experience in various massage techniques, I tailor each session to meet your specific needs and preferences.",
+      "My approach combines traditional methods with modern techniques to ensure you receive the most effective treatment for your body."
+    ]
+  },
+  "testimonials": {
+    "title": "What My Clients Say",
+    "testimonials": [
+      {
+        "name": "Sarah",
+        "text": "The most relaxing massage experience I've ever had. The atmosphere was perfect and I felt completely renewed afterward."
+      },
+      {
+        "name": "David",
+        "text": "I've been dealing with chronic back pain for years. After just three sessions, I noticed a significant improvement in my mobility and comfort."
+      },
+      {
+        "name": "Rachel",
+        "text": "A truly professional service. The attention to detail and personalized approach made all the difference in my wellness journey."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "address": "123 Relaxation Street, Tel Aviv, Israel",
+    "phone": "+972 12 345 6789",
+    "email": "contact@massagetherapy.com",
+    "formName": "Your Name",
+    "formEmail": "Your Email",
+    "formMessage": "Your Message",
+    "formSubmit": "Send Message",
+    "successMessage": "Your message has been sent successfully!",
+    "errorMessage": "There was an error sending your message. Please try again."
+  },
+  "footer": {
+    "rights": "© 2024 Massage Therapy. All rights reserved."
+  }
+}
+
