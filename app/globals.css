@@ -20,7 +20,7 @@ body {
 
 @layer base {
   :root {
-    --background: 30 30% 96%;
+    --background: 210 50% 96%; /* Light blue background */
     --foreground: 30 10% 15%;
     --card: 0 0% 100%;
     --card-foreground: 30 10% 15%;
@@ -43,7 +43,7 @@ body {
   }
 
   .dark {
-    --background: 30 15% 15%;
+    --background: 210 30% 20%; /* Darker blue background for dark mode */
     --foreground: 30 10% 95%;
     --card: 30 15% 15%;
     --card-foreground: 30 10% 95%;

@@ -15,7 +15,6 @@ export default function Hero({
   }
 }) {
   const heroRef = useRef<HTMLDivElement>(null)
-  const [showFlowerRain, setShowFlowerRain] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -40,54 +39,12 @@ export default function Hero({
 
     window.addEventListener("scroll", handleScroll)
 
-    // Create flower rain animation
-    if (showFlowerRain) {
-      const flowerRainContainer = document.querySelector(".flower-rain-container")
-
-      // Create fewer petals on mobile for better performance
-      const petalCount = isMobile ? 25 : 50
-
-      // Create flower petals
-      for (let i = 0; i < petalCount; i++) {
-        const petal = document.createElement("div")
-        petal.className = "flower-petal"
-
-        // Random size between 15px and 30px (smaller on mobile)
-        const size = Math.floor(Math.random() * (isMobile ? 12 : 16)) + (isMobile ? 10 : 15)
-        petal.style.width = `${size}px`
-        petal.style.height = `${size}px`
-
-        // Random horizontal position
-        petal.style.left = `${Math.random() * 100}%`
-
-        // Random fall duration between 7s and 15s
-        const fallDuration = Math.floor(Math.random() * 8) + 7
-        petal.style.animationDuration = `${fallDuration}s`
-
-        // Random delay so they don't all start at once
-        const fallDelay = Math.random() * 5
-        petal.style.animationDelay = `${fallDelay}s`
-
-        flowerRainContainer?.appendChild(petal)
-      }
-
-      // Remove flower rain after 10 seconds
-      const timer = setTimeout(() => {
-        setShowFlowerRain(false)
-      }, 10000)
-
-      return () => {
-        clearTimeout(timer)
-        window.removeEventListener("scroll", handleScroll)
-        window.removeEventListener("resize", checkMobile)
-      }
-    }
 
     return () => {
       window.removeEventListener("scroll", handleScroll)
       window.removeEventListener("resize", checkMobile)
     }
-  }, [showFlowerRain, isMobile])
+  }, [isMobile])
 
   return (
     <section
@@ -95,10 +52,8 @@ export default function Hero({
       className="relative min-h-[90vh] flex items-center justify-center bg-warmBrown-50 overflow-hidden"
     >
       {/* Background with warm brown gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-warmBrown-100 to-warmBrown-50"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#25363e] to-[#25343b]"></div>
 
-      {/* Flower rain animation */}
-      {showFlowerRain && <div className="flower-rain-container"></div>}
 
       <div className="container mx-auto px-4 py-12 md:py-24 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-[10%] max-w-6xl mx-auto">
