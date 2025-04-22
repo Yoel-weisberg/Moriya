@@ -36,7 +36,7 @@ export default function Footer({
   }, [])
 
   return (
-    <footer ref={footerRef} className="bg-warmBrown-800 text-white py-8 md:py-12 reveal">
+    <footer ref={footerRef} className="bg-[#25363e] text-white py-8 md:py-12 reveal">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
           <div className="flex items-center gap-2 animate-slide-in-left">

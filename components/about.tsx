@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import Image from "next/image"
 
 export default function About({
   dict,
@@ -33,23 +34,31 @@ export default function About({
   }, [])
 
   return (
-    <section id="about" ref={sectionRef} className="py-16 md:py-24 bg-warmBrown-100">
+    <section id="about" ref={sectionRef} className="py-16 md:py-24 bg-gradient-to-t from-[#25363e] to-[#25343b]">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-8 md:mb-12 reveal">
             <h2 className="text-2xl md:text-3xl font-bold gradient-text">{dict.title}</h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="grid md:grid-cols-2 gap-8  items-center">
             <div className="aspect-square rounded-full overflow-hidden bg-warmBrown-200 flex items-center justify-center reveal order-2 md:order-1 max-w-[250px] md:max-w-none mx-auto md:mx-0">
-              <div className="w-4/5 h-4/5 rounded-full bg-[url('/placeholder.svg?height=500&width=500')] bg-cover bg-center shadow-lg transform transition-all duration-500 hover:scale-105"></div>
+              <Image
+                src="https://static.yoelweisberg.com/portfilioio-images/AboutMe.jpg"
+                alt="About Us"
+                width={500}
+                height={500}
+                className="object-cover w-full h-full transition-transform duration-500 transform hover:scale-105"
+              >
+              </Image>
+              {/* <div className="w-4/5 h-4/5 rounded-full bg-[url('/placeholder.svg?height=500&width=500')] bg-cover bg-center shadow-lg transform transition-all duration-500 hover:scale-105"></div> */}
             </div>
 
             <div className="space-y-4 order-1 md:order-2">
               {dict.content.map((paragraph, index) => (
                 <p
                   key={index}
-                  className="text-sm md:text-base text-warmBrown-800 reveal"
+                  className="text-sm  text-warmBrown-200 md:text-xl reveal"
                   style={{ animationDelay: `${index * 200}ms` }}
                 >
                   {paragraph}

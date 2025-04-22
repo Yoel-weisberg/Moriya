@@ -14,7 +14,7 @@
   "hero": {
     "title": "תני לי להעניק לך את מה שמגיע לך",
     "subtitle": "טיפולי עיסוי מקצועיים להתחדשות הגוף והנפש",
-    "cta": "הזמן טיפול"
+    "cta": "הזמיני טיפול"
   },
   "about": {
     "title": "קצת עלי",
@@ -42,16 +42,16 @@
     ]
   },
   "contact": {
-    "title": "צור קשר",
-    "address": "רחוב הרגיעה 123, תל אביב, ישראל",
-    "phone": "+972 12 345 6789",
-    "email": "contact@massagetherapy.com",
-    "formName": "השם שלך",
-    "formEmail": "האימייל שלך",
-    "formMessage": "ההודעה שלך",
-    "formSubmit": "שלח הודעה",
-    "successMessage": "ההודעה שלך נשלחה בהצלחה!",
-    "errorMessage": "אירעה שגיאה בשליחת ההודעה שלך. אנא נסה שוב."
+    "title": "צרי קשר ",
+    "address": "123 Relaxation Street, Tel Aviv, Israel",
+    "phone": "+972 58 461 5613",
+    "email": "moriyatal135@gmail.com",
+    "formName": "Your Name",
+    "formEmail": "Your Email",
+    "formMessage": "Your Message",
+    "formSubmit": "Send Message",
+    "successMessage": "Your message has been sent successfully!",
+    "errorMessage": "There was an error sending your message. Please try again."
   },
   "footer": {
     "rights": "© 2024 טיפולי עיסוי. כל הזכויות שמורות."
