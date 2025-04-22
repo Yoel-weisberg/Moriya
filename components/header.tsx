@@ -106,10 +106,10 @@ export default function Header({
             <Button
               variant="ghost"
               size="icon"
-              className={`transition-colors duration-300 p-2 ${
+              className={`transition-colors duration-300 p-2 scale-150 ${
                 scrolled
                   ? "text-white hover:bg-warmBrown-700/20"
-                  : "text-warmBrown-900 hover:bg-warmBrown-200/50"
+                  : "text-white hover:bg-warmBrown-200/50"
               }`}
               aria-label="Open menu"
             >
@@ -117,7 +117,7 @@ export default function Header({
             </Button>
           </SheetTrigger>
           <SheetContent
-            side="right"
+            side="left"
             className="bg-warmBrown-800 text-white border-warmBrown-700 p-0 w-[80vw] max-w-[300px]"
           >
             <div className="flex flex-col h-full">
