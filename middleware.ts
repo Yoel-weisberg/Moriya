@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
   // Check if the pathname is the root path or doesn't start with a locale
   if (pathname === "/" || pathname === "") {
     // Redirect to the default locale (English)
-    return NextResponse.redirect(new URL(`/en`, request.url))
+    return NextResponse.redirect(new URL(`/he`, request.url))
   }
 
   // Check if pathname doesn't start with a locale
@@ -18,7 +18,7 @@ export function middleware(request: NextRequest) {
 
   if (pathnameIsMissingLocale) {
     // Redirect to the default locale (English)
-    return NextResponse.redirect(new URL(`/en${pathname}`, request.url))
+    return NextResponse.redirect(new URL(`/he${pathname}`, request.url))
   }
 }
 

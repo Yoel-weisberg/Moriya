@@ -69,7 +69,7 @@ export default function Contact({
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
           <div className="reveal order-2 md:order-1">
             <div className="relative h-[280px] md:h-[400px] rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-500 hover:shadow-3xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-warmBrown-700/10 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-warmBrown-700/10 to-transparent pointer-events-none"></div>
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4022.874082154398!2d35.19332797610653!3d31.786790133930218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502d6342abc4d23%3A0x1023a4c073c9823d!2sGat%20St%207%2C%20Jerusalem!5e1!3m2!1sen!2sil!4v1745321825625!5m2!1sen!2sil"
                 width="100%"
@@ -79,7 +79,7 @@ export default function Contact({
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Location Map"
-                className="rounded-2xl"
+                className="rounded-2xl pointer-events-auto"
               ></iframe>
               <div className="absolute -inset-0.5 bg-gradient-to-br from-warmBrown-400/10 to-transparent opacity-30 blur-sm pointer-events-none"></div>
             </div>
