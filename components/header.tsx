@@ -123,7 +123,7 @@ export default function Header({
             <div className="flex flex-col h-full">
               <div className="p-6 border-b border-warmBrown-700">
                 <div className="font-semibold text-xl text-warmBrown-100">
-                  Massage Therapy
+                  מגע לנשמה
                 </div>
               </div>
 

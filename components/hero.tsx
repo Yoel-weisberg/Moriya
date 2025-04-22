@@ -43,40 +43,43 @@ export default function Hero({
   return (
     <section
       ref={heroRef}
-      className="relative min-h-[100vh] sm:min-h-[90vh] flex items-center justify-center overflow-hidden"
+      className="relative min-h-[100vh] sm:min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#1a2026]"
     >
       {/* Main background with gradient and pattern */}
-      <div className="absolute inset-0 bg-[#25363e]">
-        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 mix-blend-overlay"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-[#25363e] via-[#1a2a32] to-[#0f1a1f] opacity-90"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]"></div>
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.15] mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1a2026] via-[#1f282f] to-[#243038] opacity-95"></div>
+        <div className="absolute inset-0" style={{
+          background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 60%), radial-gradient(circle at 100% 0%, rgba(255,255,255,0.06) 0%, transparent 40%)'
+        }}></div>
       </div>
 
       {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#3a4a52] rounded-full mix-blend-overlay opacity-20 blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-[#2a3a42] rounded-full mix-blend-overlay opacity-20 blur-3xl"></div>
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute top-[20%] left-[15%] w-[500px] h-[500px] bg-[#2a3842] rounded-full mix-blend-overlay opacity-[0.07] blur-3xl"></div>
+        <div className="absolute bottom-[10%] right-[15%] w-[400px] h-[400px] bg-[#1f282f] rounded-full mix-blend-overlay opacity-[0.05] blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-warmBrown-400/20 to-transparent"></div>
       </div>
 
-      <div className="container mx-auto px-4 py-8 sm:py-12 md:py-24 relative z-10">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-[10%] max-w-6xl mx-auto">
-          <div className="flex flex-col items-center md:items-start space-y-4 md:space-y-6 animate-fade-in md:w-1/2 w-full text-center md:text-left">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-warmBrown-200 animate-slide-up">
+      <div className="container mx-auto px-6 py-8 sm:py-12 md:py-24 relative z-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-[10%] max-w-7xl mx-auto">
+          <div className="flex flex-col items-center md:items-start space-y-6 md:space-y-8 animate-fade-in md:w-1/2 w-full max-md:text-center">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-warmBrown-100 animate-slide-up leading-tight">
               {dict.title}
             </h1>
 
             <p
-              className="text-sm sm:text-base md:text-lg lg:text-xl text-warmBrown-200 max-w-2xl animate-slide-up px-4 md:px-0"
+              className="text-base sm:text-lg md:text-xl text-warmBrown-200/90 max-w-2xl animate-slide-up px-4 md:px-0 leading-relaxed"
               style={{ animationDelay: "200ms" }}
             >
               {dict.subtitle}
             </p>
 
-            <div className="pt-4 animate-slide-up" style={{ animationDelay: "400ms" }}>
+            <div className="pt-6 animate-slide-up" style={{ animationDelay: "400ms" }}>
               <Button
                 asChild
                 size="lg"
-                className="rounded-full px-4 sm:px-6 md:px-8 py-2 md:py-3 text-sm md:text-base bg-warmBrown-700 hover:bg-warmBrown-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                className="rounded-full px-8 sm:px-10 py-6 text-base sm:text-lg bg-warmBrown-700 hover:bg-warmBrown-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
                 <Link href="#contact">{dict.cta}</Link>
               </Button>
@@ -84,18 +87,20 @@ export default function Hero({
           </div>
 
           <div
-            className="mt-8 md:mt-0 md:w-1/2 w-full flex justify-center animate-slide-up"
+            className="md:w-1/2 w-full flex justify-center animate-slide-up"
             style={{ animationDelay: "300ms" }}
           >
-            <div className="profile-image-container w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80 transition-all duration-300">
+            <div className="relative profile-image-container w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-warmBrown-700/20 to-transparent rounded-full"></div>
               <Image
                 src="https://static.yoelweisberg.com/portfilioio-images/hero.jpg"
                 alt="Massage Therapist"
-                width={400}
-                height={400}
-                className="object-cover w-full h-full rounded-full transform transition-transform duration-500 hover:scale-105"
+                width={500}
+                height={500}
+                className="object-cover w-full h-full rounded-full shadow-2xl transform transition-transform duration-500 hover:scale-[1.02]"
                 priority
               />
+              <div className="absolute -inset-0.5 bg-gradient-to-br from-warmBrown-400/20 to-transparent opacity-50 rounded-full blur-sm"></div>
             </div>
           </div>
         </div>
