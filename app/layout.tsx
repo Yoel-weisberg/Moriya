@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'מגע לנשמה',
+  description: 'מגע לנשמה',
   generator: 'v0.dev',
   viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
 }
