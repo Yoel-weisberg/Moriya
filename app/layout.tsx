@@ -22,12 +22,14 @@ export default function RootLayout({
         />
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="My Website" />
-        <meta name="twitter:description" content="Discover our services" />
+        <meta name="twitter:title" content="מוריה ויסברג | מגע לנשמה" />
+        <meta name="og:title" content="מוריה ויסברג | מגע לנשמה" />
         <meta
           name="twitter:image"
           content="https://static.yoelweisberg.com/portfilioio-images/hero.jpg"
         />
+
+        {/* Additional Meta Tags */}
       </head>
       <body className="min-h-screen w-full overflow-x-hidden">{children}</body>
     </html>
