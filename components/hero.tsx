@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 
 export default function Hero({
-  dict,
+  dict
 }: {
   dict: {
     title: string
@@ -58,13 +58,13 @@ export default function Hero({
       <div className="container mx-auto px-4 py-12 md:py-24 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-[10%] max-w-6xl mx-auto">
           {/* Text content */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4 md:space-y-6 animate-fade-in md:w-1/2 w-full">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight gradient-text animate-slide-up">
+          <div className="flex flex-col items-center md:items-start  space-y-4 md:space-y-6 animate-fade-in md:w-1/2 w-full">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-warmBrown-200 animate-slide-up ">
               {dict.title}
             </h1>
 
             <p
-              className="text-base sm:text-lg md:text-xl text-warmBrown-800 max-w-2xl animate-slide-up"
+              className="text-base sm:text-lg md:text-xl text-warmBrown-200 max-w-2xl animate-slide-up"
               style={{ animationDelay: "200ms" }}
             >
               {dict.subtitle}

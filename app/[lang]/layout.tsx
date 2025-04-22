@@ -37,8 +37,8 @@ export default async function RootLayout({
   const dict = await getDictionary(params.lang)
 
   return (
-    <html lang={params.lang} dir={params.lang === "he" ? "rtl" : "ltr"}>
-      <body className={`${inter.className} bg-background text-foreground`}>
+    <html lang={params.lang} dir={params.lang === "he" ? "rtl" : "ltr" } >
+      <body className={`${inter.className} text-foreground ${params.lang === "he" ? "text-right" : "text-left"} `}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <Header lang={params.lang} dict={dict.navigation} />
           {children}

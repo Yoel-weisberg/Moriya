@@ -63,12 +63,12 @@ export default function Header({
         >
           <span
             className={`flex items-center gap-1 transition-colors duration-300 ${
-              scrolled ? "text-white" : "text-warmBrown-900"
+              scrolled ? "text-white" : "text-warmBrown-200"
             }`}
           >
             <span
               className={`transition-colors duration-300 ${
-                scrolled ? "text-warmBrown-300" : "text-warmBrown-700"
+                scrolled ? "text-warmBrown-300" : "text-warmBrown-100"
               }`}
               dir="rtl"
             >
