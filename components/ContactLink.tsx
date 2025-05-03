@@ -21,7 +21,7 @@ export default function ContactLink({
       href={href}
       target={href.startsWith("http") ? "_blank" : undefined}
       rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-      className={`flex items-start gap-3 md:gap-4 p-3 md:p-4 ${bgColor} rounded-lg hover:bg-opacity-80 transition-all transform hover:-translate-y-1 hover:shadow-md reveal touch-manipulation`}
+      className={`flex  gap-3 md:gap-4 p-3 md:p-4 ${bgColor} rounded-lg hover:bg-opacity-80 transition-all transform hover:-translate-y-1 hover:shadow-md reveal touch-manipulation`}
       style={{ animationDelay }}
     >
       <div className="p-2 md:p-3 rounded-full text-white" style={{ backgroundColor: bgColor }}>

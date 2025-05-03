@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import ContactLink from "./ContactLink";
 import { MapPin, Phone, Mail, MessageSquare } from "lucide-react";
-import Link from "next/link";
+import { BsWhatsapp } from "react-icons/bs";
 
 export default function Contact({
   dict,
@@ -90,7 +90,7 @@ export default function Contact({
               <div className="space-y-6 md:space-y-8">
                 <ContactLink
                   href={`https://wa.me/${dict.phone.replace(/[^0-9]/g, "")}`}
-                  icon={<MessageSquare className="h-5 w-5 md:h-6 md:w-6" />}
+                  icon={<BsWhatsapp className="fab fa-whatsapp h-5 w-5 md:h-6 md:w-6" />}
                   title="WhatsApp"
                   description={dict.phone}
                   bgColor="bg-warmBrown-700"
