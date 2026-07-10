@@ -15,12 +15,17 @@ export const metadata = {
   title: "מגע לנשמה",
   description: "מגע לנשמה",
   generator: "v0.dev",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   icons: {
     icon: "/logo.png",
     shortcut: "/logo.png",
     apple: "/logo.png",
   },
+}
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 }
 
 export default function RootLayout({
