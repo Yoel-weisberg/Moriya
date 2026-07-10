@@ -53,6 +53,10 @@
     "successMessage": "Your message has been sent successfully!",
     "errorMessage": "There was an error sending your message. Please try again."
   },
+  "gallery": {
+    "title": "Clinic Gallery",
+    "subtitle": "Browse a selection of relaxing spaces from my clinic."
+  },
   "footer": {
     "rights": "© 2025 מגע לנשמה. All rights reserved."
   }

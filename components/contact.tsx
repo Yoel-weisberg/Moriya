@@ -1,27 +1,74 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ContactLink from "./ContactLink";
-import { MapPin, Phone, Mail, MessageSquare } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 import { BsWhatsapp } from "react-icons/bs";
+import { useLanguage } from "@/components/language-provider"
 
-export default function Contact({
-  dict,
-}: {
-  dict: {
-    title: string;
-    address: string;
-    phone: string;
-    email: string;
-    formName: string;
-    formEmail: string;
-    formMessage: string;
-    formSubmit: string;
-    successMessage: string;
-    errorMessage: string;
-  };
-}) {
+export default function Contact() {
+  const { dict, locale } = useLanguage()
   const sectionRef = useRef<HTMLElement>(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  })
+  const [formStatus, setFormStatus] = useState<"idle" | "success" | "error">("idle")
+  const [formError, setFormError] = useState("")
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const { name, email, phone, message } = formData
+
+    if (!name || !phone || !message) {
+      setFormError(locale === "he" ? "אנא מלאי שם, טלפון והודעה." : "Please complete name, phone, and message.")
+      setFormStatus("error")
+      return
+    }
+
+    setFormError("")
+    setFormStatus("idle")
+
+    const endpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT || "https://formspree.io/f/mgojglol"
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          message,
+          _subject: locale === "he" ? "טופס לידים מאתר" : "Lead form submission",
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error("submit failed")
+      }
+
+      setFormStatus("success")
+      setFormData({ name: "", email: "", phone: "", message: "" })
+    } catch (error) {
+      setFormError(
+        locale === "he"
+          ? "אירעה שגיאה בשליחת הטופס. אנא נסי שנית מאוחר יותר."
+          : "Something went wrong sending the form. Please try again later."
+      )
+      setFormStatus("error")
+      console.error("Form submission error:", error)
+    }
+  }
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -63,53 +110,104 @@ export default function Contact({
 
       <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         <div className="text-center mb-12 md:mb-16 reveal">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-warmBrown-100">{dict.title}</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-warmBrown-100">{dict.contact.title}</h2>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
-          <div className="reveal order-2 md:order-1">
-            <div className="relative h-[280px] md:h-[400px] rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-500 hover:shadow-3xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-warmBrown-700/10 to-transparent pointer-events-none"></div>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4022.874082154398!2d35.19332797610653!3d31.786790133930218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502d6342abc4d23%3A0x1023a4c073c9823d!2sGat%20St%207%2C%20Jerusalem!5e1!3m2!1sen!2sil!4v1745321825625!5m2!1sen!2sil"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Location Map"
-                className="rounded-2xl pointer-events-auto"
-              ></iframe>
-              <div className="absolute -inset-0.5 bg-gradient-to-br from-warmBrown-400/10 to-transparent opacity-30 blur-sm pointer-events-none"></div>
+          <div className="reveal order-1 md:order-1">
+            <div className="bg-[#11181f] p-6 sm:p-8 rounded-[2rem] shadow-2xl border border-white/10">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <label className="block">
+                    <span className="text-sm font-medium text-warmBrown-200">{locale === "he" ? "שם" : "Name"}</span>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="mt-2 w-full rounded-2xl border border-white/10 bg-[#11181f] px-4 py-3 text-white outline-none focus:border-warmBrown-500"
+                      placeholder={locale === "he" ? "הכנס שם" : "Enter your name"}
+                    />
+                  </label>
+                  <label className="block">
+                    <span className="text-sm font-medium text-warmBrown-200">Email</span>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="mt-2 w-full rounded-2xl border border-white/10 bg-[#11181f] px-4 py-3 text-white outline-none focus:border-warmBrown-500"
+                      placeholder={locale === "he" ? "הכנס אימייל" : "Enter your email"}
+                    />
+                  </label>
+                </div>
+
+                <label className="block">
+                  <span className="text-sm font-medium text-warmBrown-200">{locale === "he" ? "טלפון" : "Phone"}</span>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="mt-2 w-full rounded-2xl border border-white/10 bg-[#11181f] px-4 py-3 text-white outline-none focus:border-warmBrown-500"
+                    placeholder={locale === "he" ? "הכנס טלפון" : "Enter your phone"}
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="text-sm font-medium text-warmBrown-200">{locale === "he" ? "הודעה" : "Message"}</span>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows={5}
+                    className="mt-2 w-full rounded-2xl border border-white/10 bg-[#11181f] px-4 py-3 text-white outline-none focus:border-warmBrown-500"
+                    placeholder={locale === "he" ? "הכנס הודעה" : "Enter your message"}
+                  />
+                </label>
+
+                {formStatus === "error" && (
+                  <p className="text-sm text-red-400">{formError}</p>
+                )}
+                {formStatus === "success" && (
+                  <p className="text-sm text-emerald-400">{locale === "he" ? "הטופס נשלח בהצלחה!" : "Form submitted successfully!"}</p>
+                )}
+
+                <button
+                  type="submit"
+                  className="inline-flex items-center justify-center rounded-full bg-warmBrown-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-warmBrown-600"
+                >
+                  {locale === "he" ? "שלח" : "Send"}
+                </button>
+              </form>
             </div>
           </div>
 
-          <div className="reveal order-1 md:order-2">
+          <div className="reveal order-2 md:order-2">
             <div className="bg-white/[0.02] backdrop-blur-sm p-6 sm:p-8 md:p-10 rounded-2xl shadow-2xl">
               <div className="space-y-6 md:space-y-8">
                 <ContactLink
-                  href={`https://wa.me/${dict.phone.replace(/[^0-9]/g, "")}`}
+                  href={`https://wa.me/${dict.contact.phone.replace(/[^0-9]/g, "")}`}
                   icon={<BsWhatsapp className="fab fa-whatsapp h-5 w-5 md:h-6 md:w-6" />}
                   title="WhatsApp"
-                  description={dict.phone}
+                  description={dict.contact.phone}
                   bgColor="bg-warmBrown-700"
                 />
 
                 <ContactLink
-                  href={`tel:${dict.phone.replace(/[^0-9]/g, "")}`}
+                  href={`tel:${dict.contact.phone.replace(/[^0-9]/g, "")}`}
                   icon={<Phone className="h-5 w-5 md:h-6 md:w-6" />}
                   title="Phone"
-                  description={dict.phone}
+                  description={dict.contact.phone}
                   bgColor="bg-warmBrown-700"
                   animationDelay="100ms"
                 />
 
                 <ContactLink
-                  href={`mailto:${dict.email}`}
+                  href={`mailto:${dict.contact.email}`}
                   icon={<Mail className="h-5 w-5 md:h-6 md:w-6" />}
                   title="Email"
-                  description={dict.email}
+                  description={dict.contact.email}
                   bgColor="bg-warmBrown-700"
                   animationDelay="200ms"
                 />

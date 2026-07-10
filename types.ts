@@ -34,6 +34,10 @@ export type Dictionary = {
       text: string
     }[]
   }
+  gallery: {
+    title: string
+    subtitle: string
+  }
   contact: {
     title: string
     address: string

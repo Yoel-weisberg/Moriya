@@ -1,8 +1,22 @@
-import { redirect } from "next/navigation"
+"use client"
 
-export default function RootPage() {
-  // Redirect to the English version at the root level
-  redirect("/he")
+import Hero from "@/components/hero"
+import About from "@/components/about"
+import Certificates from "@/components/certificates"
+import Gallery from "@/components/gallery"
+import Testimonials from "@/components/testimonials"
+import Contact from "@/components/contact"
 
+export default function Home() {
+  return (
+    <main className="min-h-screen">
+      <Hero />
+      <About />
+      <Certificates />
+      <Gallery />
+      <Testimonials />
+      <Contact />
+    </main>
+  )
 }
 

@@ -1,45 +1,31 @@
 "use client"
 
-import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import type { Locale } from "@/types"
-import {IL, US} from "country-flag-icons/react/3x2"
+import { useLanguage } from "@/components/language-provider"
+import { IL, US } from "country-flag-icons/react/3x2"
+
 export default function LanguageSwitcher({
-  currentLang,
-  dict,
   scrolled = false,
 }: {
-  currentLang: Locale
-  dict: {
-    switchToEnglish: string
-    switchToHebrew: string
-  }
   scrolled?: boolean
 }) {
-  const router = useRouter()
-  const pathname = usePathname()
+  const { locale, dict, setLocale } = useLanguage()
 
-  const switchLanguage = () => {
-    const newLang = currentLang === "en" ? "he" : "en"
-    const currentPath = pathname.split("/").slice(2).join("/") || ""
-    router.push(`/${newLang}/${currentPath}`)
+  const toggleLanguage = () => {
+    setLocale(locale === "en" ? "he" : "en")
   }
 
   return (
     <Button
       variant="ghost"
       size="icon"
-      onClick={switchLanguage}
+      onClick={toggleLanguage}
       className={`rounded-full p-1 transition-all duration-300 transform hover:scale-110 ${
         scrolled ? "bg-transparent hover:bg-warmBrown-700/20" : "bg-transparent hover:bg-warmBrown-200/50"
       }`}
-      title={currentLang === "en" ? dict.switchToHebrew : dict.switchToEnglish}
+      title={locale === "en" ? dict.navigation.switchToHebrew : dict.navigation.switchToEnglish}
     >
-      {currentLang === "en" ? (
-        <IL/>
-      ) : (
-        <US />
-      )}
+      {locale === "en" ? <IL /> : <US />}
     </Button>
   )
 }

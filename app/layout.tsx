@@ -1,37 +1,67 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type React from "react"
+import "./globals.css"
+import { Inter } from "next/font/google"
+import Script from "next/script"
+import Header from "@/components/header"
+import Footer from "@/components/footer"
+import FloatingContactButtons from "@/components/floating-contact-buttons"
+import { ThemeProvider } from "@/components/theme-provider"
+import ScrollObserver from "@/components/scroll-observer"
+import { LanguageProvider } from "@/components/language-provider"
 
-export const metadata: Metadata = {
+const inter = Inter({ subsets: ["latin"] })
+
+export const metadata = {
   title: "מגע לנשמה",
   description: "מגע לנשמה",
   generator: "v0.dev",
   viewport: "width=device-width, initial-scale=1, maximum-scale=1",
-};
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en" className="scroll-smooth">
-      <head>
-        <meta
-          property="og:image"
-          content="https://static.yoelweisberg.com/portfilioio-images/hero.jpg"
-        />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="מוריה ויסברג | מגע לנשמה" />
-        <meta name="og:title" content="מוריה ויסברג | מגע לנשמה" />
-        <meta
-          name="twitter:image"
-          content="https://static.yoelweisberg.com/portfilioio-images/hero.jpg"
-        />
-
-        {/* Additional Meta Tags */}
-      </head>
-      <body className="min-h-screen w-full overflow-x-hidden">{children}</body>
+      <body className={`${inter.className} text-foreground min-h-screen w-full overflow-x-hidden`}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+          <LanguageProvider>
+            <Header />
+            {children}
+            <Footer />
+            <ScrollObserver />
+            <FloatingContactButtons />
+          </LanguageProvider>
+        </ThemeProvider>
+        <Script id="fb-pixel" strategy="afterInteractive">
+          {`!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2668824446880482');
+fbq('track', 'PageView');`}
+        </Script>
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=2668824446880482&ev=PageView&noscript=1"
+            alt="fb-pixel"
+          />
+        </noscript>
+      </body>
     </html>
-  );
+  )
 }

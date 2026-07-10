@@ -1,17 +1,14 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
+import { useLanguage } from "@/components/language-provider"
 
-export default function About({
-  dict,
-}: {
-  dict: {
-    title: string
-    content: string[]
-  }
-}) {
+export default function About() {
+  const { dict } = useLanguage()
   const sectionRef = useRef<HTMLElement>(null)
+  const [expanded, setExpanded] = useState(false)
+  const visibleParagraphs = expanded ? dict.about.content : dict.about.content.slice(0, 4)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -31,7 +28,7 @@ export default function About({
     return () => {
       revealElements.forEach((el) => observer.unobserve(el))
     }
-  }, [])
+  }, [expanded])
 
   return (
     <section
@@ -58,32 +55,47 @@ export default function About({
       <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12 md:mb-16 reveal">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-warmBrown-100">{dict.title}</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-warmBrown-100">{dict.about.title}</h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-            <div className="relative aspect-square rounded-2xl overflow-hidden bg-warmBrown-900/10 flex items-center justify-center reveal order-2 md:order-1 w-56 h-56 sm:w-72 sm:h-72 md:w-full md:h-auto mx-auto md:mx-0 transition-transform duration-300">
-              <div className="absolute inset-0 bg-gradient-to-br from-warmBrown-700/10 to-transparent"></div>
-              <Image
-                src="https://static.yoelweisberg.com/portfilioio-images/AboutMe.jpg"
-                alt="About Us"
-                width={600}
-                height={600}
-                className="object-cover w-full h-full transition-transform duration-500 transform hover:scale-[1.02]"
-              />
-              <div className="absolute -inset-0.5 bg-gradient-to-br from-warmBrown-400/10 to-transparent opacity-50 blur-sm"></div>
+          <div className="grid gap-10 xl:grid-cols-[1.05fr_0.95fr] items-center">
+            <div className="order-1">
+              <div className="space-y-6 rounded-[2rem] border border-white/10 bg-white/5 p-6 sm:p-8 shadow-2xl shadow-black/10">
+                {visibleParagraphs.map((paragraph, index) => (
+                  <p
+                    key={index}
+                    className="text-base sm:text-lg leading-8 text-warmBrown-200/90 reveal"
+                    style={{ animationDelay: `${index * 200}ms` }}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+
+                {dict.about.content.length > 4 && (
+                  <button
+                    type="button"
+                    onClick={() => setExpanded(!expanded)}
+                    className="inline-flex items-center justify-center rounded-full bg-warmBrown-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-warmBrown-600"
+                  >
+                    {expanded ? "הצג פחות" : "קרא עוד"}
+                  </button>
+                )}
+              </div>
             </div>
 
-            <div className="space-y-6 order-1 md:order-2">
-              {dict.content.map((paragraph, index) => (
-                <p
-                  key={index}
-                  className="text-base sm:text-lg text-warmBrown-200/90 reveal leading-relaxed"
-                  style={{ animationDelay: `${index * 200}ms` }}
-                >
-                  {paragraph}
-                </p>
-              ))}
+            <div className="order-2">
+              <div className="relative rounded-[2rem] overflow-hidden bg-warmBrown-900/10 reveal transition-transform duration-300 hover:shadow-2xl hover:shadow-black/20">
+                <div className="absolute inset-0 bg-gradient-to-br from-warmBrown-700/10 to-transparent"></div>
+                <div className="relative h-[360px] sm:h-[440px] md:h-[520px] w-full">
+                  <Image
+                    src="https://static.yoelweisberg.com/portfilioio-images/AboutMe.jpg"
+                    alt="About Us"
+                    fill
+                    className="object-cover transition-transform duration-500 transform hover:scale-[1.02]"
+                  />
+                </div>
+                <div className="absolute -inset-0.5 bg-gradient-to-br from-warmBrown-400/10 to-transparent opacity-50 blur-sm"></div>
+              </div>
             </div>
           </div>
         </div>

@@ -2,14 +2,10 @@
 
 import Link from "next/link"
 import { useEffect, useRef } from "react"
+import { useLanguage } from "@/components/language-provider"
 
-export default function Footer({
-  dict,
-}: {
-  dict: {
-    rights: string
-  }
-}) {
+export default function Footer() {
+  const { dict } = useLanguage()
   const footerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -43,7 +39,7 @@ export default function Footer({
             <span className="font-medium text-sm md:text-base text-warmBrown-100">Massage Therapy</span>
           </div>
 
-          <p className="text-xs md:text-sm text-warmBrown-300 animate-fade-in text-center">{dict.rights}</p>
+          <p className="text-xs md:text-sm text-warmBrown-300 animate-fade-in text-center">{dict.footer.rights}</p>
 
           <div className="flex gap-4 md:gap-6 animate-slide-in-right">
             <Link href="#" className="text-warmBrown-300 hover:text-white transition-colors touch-manipulation">

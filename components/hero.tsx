@@ -4,16 +4,11 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
+import { ArrowDown } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
 
-export default function Hero({
-  dict
-}: {
-  dict: {
-    title: string
-    subtitle: string
-    cta: string
-  }
-}) {
+export default function Hero() {
+  const { dict } = useLanguage()
   const heroRef = useRef<HTMLDivElement>(null)
   const [isMobile, setIsMobile] = useState(false)
 
@@ -65,14 +60,14 @@ export default function Hero({
         <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-[10%] max-w-7xl mx-auto">
           <div className="flex flex-col items-center md:items-start space-y-6 md:space-y-8 animate-fade-in md:w-1/2 w-full max-md:text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-warmBrown-100 animate-slide-up leading-tight">
-              {dict.title}
+              {dict.hero.title}
             </h1>
 
             <p
-              className="text-base sm:text-lg md:text-xl text-warmBrown-200/90 max-w-2xl animate-slide-up px-4 md:px-0 leading-relaxed"
+              className="text-base font-black sm:text-lg md:text-4xl text-warmBrown-200/90 max-w-2xl animate-slide-up px-4 md:px-0 leading-relaxed"
               style={{ animationDelay: "200ms" }}
             >
-              {dict.subtitle}
+              {dict.hero.subtitle}
             </p>
 
             <div className="pt-6 animate-slide-up" style={{ animationDelay: "400ms" }}>
@@ -81,7 +76,7 @@ export default function Hero({
                 size="lg"
                 className="rounded-full px-8 sm:px-10 py-6 text-base sm:text-lg bg-warmBrown-700 hover:bg-warmBrown-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
-                <Link href="#contact">{dict.cta}</Link>
+                <Link href="#contact">{dict.hero.cta}</Link>
               </Button>
             </div>
           </div>
@@ -93,7 +88,7 @@ export default function Hero({
             <div className="relative profile-image-container w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 transition-all duration-300">
               <div className="absolute inset-0 bg-gradient-to-br from-warmBrown-700/20 to-transparent rounded-full"></div>
               <Image
-                src="https://static.yoelweisberg.com/portfilioio-images/hero.jpg"
+                src="/hero.jpg"
                 alt="Massage Therapist"
                 width={500}
                 height={500}
@@ -102,6 +97,16 @@ export default function Hero({
               />
               <div className="absolute -inset-0.5 bg-gradient-to-br from-warmBrown-400/20 to-transparent opacity-50 rounded-full blur-sm"></div>
             </div>
+          </div>
+
+          <div className="absolute left-1/2 bottom-5 -translate-x-1/2">
+            <Link
+              href="#about"
+              className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 p-4 text-white shadow-xl shadow-black/30 transition duration-300 hover:-translate-y-1 hover:bg-white/10"
+              style={{ animation: "bounce 1s infinite" }}
+            >
+              <ArrowDown className="h-6 w-6" />
+            </Link>
           </div>
         </div>
       </div>

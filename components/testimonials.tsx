@@ -1,28 +1,24 @@
-"use client";
+"use client"
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react"
+import Slider from "react-slick"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
+import { useLanguage } from "@/components/language-provider"
 
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
-export default function Testimonials({
-  dict,
-}: {
-  dict: {
-    title: string;
-    testimonials: {
-      name: string;
-      text: string;
-    }[];
-  };
-}) {
+export default function Testimonials() {
+  const { dict } = useLanguage()
   const whatsappScreenshots = [
     "screenshot2.jpg",
     "screenshot3.jpg",
     "screenshot4.jpg",
     "screenshot1.jpg",
-  ];
+    "screenshot5.jpg",
+    "screenshot6.jpg",
+    "screenshot7.jpg",
+    "screenshot8.jpg",
+    "screenshot9.jpg",
+  ]
 
   const settings = {
     dots: true,
@@ -46,32 +42,32 @@ export default function Testimonials({
         },
       },
     ],
-  };
+  }
 
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("active");
+            entry.target.classList.add("active")
           }
-        });
+        })
       },
       { threshold: 0.1 }
-    );
+    )
 
     if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+      observer.observe(sectionRef.current)
     }
 
     return () => {
       if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+        observer.unobserve(sectionRef.current)
       }
-    };
-  }, []);
+    }
+  }, [])
 
   return (
     <section id="testimonials" ref={sectionRef} className="relative py-20 sm:py-24 md:py-32 overflow-hidden bg-[#243038]">
@@ -94,7 +90,7 @@ export default function Testimonials({
       <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         <div className="text-center mb-12 md:mb-16 reveal">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-warmBrown-100">
-            {dict.title}
+            {dict.testimonials.title}
           </h2>
         </div>
 
@@ -107,7 +103,7 @@ export default function Testimonials({
                     <div className="relative rounded-xl overflow-hidden shadow-2xl">
                       <div className="absolute inset-0 bg-gradient-to-br from-warmBrown-700/10 to-transparent"></div>
                       <img
-                        src={`https://static.yoelweisberg.com/moriyawebsite/${screenShot}`}
+                        src={`/${screenShot}`}
                         alt={`WhatsApp screenshot ${index + 1}`}
                         className="max-h-[120px] sm:max-h-[200px] md:max-h-[280px] lg:max-h-[320px] w-auto transform transition-all duration-500 hover:scale-[1.02]"
                       />
@@ -121,6 +117,6 @@ export default function Testimonials({
         </div>
       </div>
     </section>
-  );
+  )
 }
 

@@ -1,54 +1,38 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import type { Locale } from "@/types";
-import { Menu } from "lucide-react";
-import LanguageSwitcher from "./language-switcher";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import NavBarElement from "./navBarElement";
-export default function Header({
-  lang,
-  dict,
-}: {
-  lang: Locale;
-  dict: {
-    home: string;
-    about: string;
-    testimonials: string;
-    contact: string;
-    switchToEnglish: string;
-    switchToHebrew: string;
-  };
-}) {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-  const pathname = usePathname();
+import { useState, useEffect } from "react"
+import Image from "next/image"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { Menu } from "lucide-react"
+import LanguageSwitcher from "./language-switcher"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Button } from "@/components/ui/button"
+import NavBarElement from "./navBarElement"
+import { useLanguage } from "@/components/language-provider"
 
-  // Close sheet when route changes
+export default function Header() {
+  const { locale, dict } = useLanguage()
+  const [scrolled, setScrolled] = useState(false)
+  const [open, setOpen] = useState(false)
+  const pathname = usePathname()
+
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+    setOpen(false)
+  }, [pathname])
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
+      setScrolled(window.scrollY > 50)
+    }
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   return (
     <header
-      dir="rtl"
+      dir={locale === "he" ? "rtl" : "ltr"}
       className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled
           ? "bg-warmBrown-800/95 backdrop-blur-md shadow-md py-2"
@@ -58,45 +42,32 @@ export default function Header({
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center justify-between direction-normal gap-7 mx-16 ">
         <Link
-          href={`/${lang}`}
-          className="text-lg md:text-xl font-semibold flex items-center gap-2 group"
+          href="/"
+          className="flex items-center gap-2"
         >
+          <Image
+            src="/logo.png"
+            alt="מגע לנשמה"
+            width={48}
+            height={48}
+            className="h-12 w-12 object-contain"
+          />
           <span
-            className={`flex items-center gap-1 transition-colors duration-300 ${
+            className={`text-lg md:text-xl font-semibold transition-colors duration-300 ${
               scrolled ? "text-white" : "text-warmBrown-200"
             }`}
           >
-            <span
-              className={`transition-colors duration-300 ${
-                scrolled ? "text-warmBrown-300" : "text-warmBrown-100"
-              }`}
-              dir="rtl"
-            >
-              מגע
-            </span>{" "}
-            לנשמה
+            מגע לנשמה
           </span>
         </Link>
 
         <nav className="flex items-center gap-6 md:gap-8 md:text-xl font-bold">
-          <NavBarElement
-            href={`/${lang}#about`}
-            text={dict.about}
-            scrolled={scrolled}
-          />
-          <NavBarElement
-            href={`/${lang}#testimonials`}
-            text={dict.testimonials}
-            scrolled={scrolled}
-          />
-          <NavBarElement
-            href={`/${lang}#contact`}
-            text={dict.contact}
-            scrolled={scrolled}
-          />
+          <NavBarElement href="#about" text={dict.navigation.about} scrolled={scrolled} />
+          <NavBarElement href="#testimonials" text={dict.navigation.testimonials} scrolled={scrolled} />
+          <NavBarElement href="#contact" text={dict.navigation.contact} scrolled={scrolled} />
         </nav>
 
-        <LanguageSwitcher currentLang={lang} dict={dict} scrolled={scrolled} />
+        <LanguageSwitcher scrolled={scrolled} />
       </div>
 
       {/* Mobile Navigation with Sheet */}
@@ -130,34 +101,30 @@ export default function Header({
               <nav className="flex-1 overflow-auto py-6 px-6">
                 <div className="space-y-6 flex flex-col">
                   <Link
-                    href={`/${lang}#about`}
+                    href="#about"
                     className="text-base py-2 text-warmBrown-100 hover:text-white transition-colors touch-manipulation flex items-center"
                     onClick={() => setOpen(false)}
                   >
-                    {dict.about}
+                    {dict.navigation.about}
                   </Link>
                   <Link
-                    href={`/${lang}#testimonials`}
+                    href="#testimonials"
                     className="text-base py-2 text-warmBrown-100 hover:text-white transition-colors touch-manipulation flex items-center"
                     onClick={() => setOpen(false)}
                   >
-                    {dict.testimonials}
+                    {dict.navigation.testimonials}
                   </Link>
                   <Link
-                    href={`/${lang}#contact`}
+                    href="#contact"
                     className="text-base py-2 text-warmBrown-100 hover:text-white transition-colors touch-manipulation flex items-center"
                     onClick={() => setOpen(false)}
                   >
-                    {dict.contact}
+                    {dict.navigation.contact}
                   </Link>
 
                   <div className="pt-4 border-t border-warmBrown-700 mt-4">
                     <div className="flex items-center py-2">
-                      <LanguageSwitcher
-                        currentLang={lang}
-                        dict={dict}
-                        scrolled={true}
-                      />
+                      <LanguageSwitcher scrolled={true} />
                     </div>
                   </div>
                 </div>
@@ -241,5 +208,5 @@ export default function Header({
         </Sheet>
       </div>
     </header>
-  );
+  )
 }
