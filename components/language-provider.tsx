@@ -13,7 +13,7 @@ const LanguageContext = createContext<{
   ready: boolean
 }>({
   locale: i18n.defaultLocale,
-  dict: enDict,
+  dict: heDict,
   setLocale: () => {},
   ready: true,
 })
@@ -25,7 +25,7 @@ const dictionaries: Record<Locale, Dictionary> = {
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocale] = useState<Locale>(i18n.defaultLocale)
-  const [dict, setDict] = useState<Dictionary>(enDict)
+  const [dict, setDict] = useState<Dictionary>(heDict)
 
   useEffect(() => {
     const stored = window.localStorage.getItem("lang") as Locale | null

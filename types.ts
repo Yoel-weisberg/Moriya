@@ -1,7 +1,7 @@
 export type Locale = "en" | "he"
 
 export const i18n = {
-  defaultLocale: "en" as const,
+  defaultLocale: "he" as const,
   locales: ["en", "he"] as const,
 }
 
