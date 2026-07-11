@@ -88,7 +88,7 @@ export default function Hero() {
             <div className="relative profile-image-container w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 transition-all duration-300">
               <div className="absolute inset-0 bg-gradient-to-br from-warmBrown-700/20 to-transparent rounded-full"></div>
               <Image
-                src="/hero.jpg"
+                src="/hero.png"
                 alt="Massage Therapist"
                 width={500}
                 height={500}

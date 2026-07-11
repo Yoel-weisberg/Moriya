@@ -83,18 +83,20 @@ export default function About() {
               </div>
             </div>
 
-            <div className="order-2">
-              <div className="relative rounded-[2rem] overflow-hidden bg-warmBrown-900/10 reveal transition-transform duration-300 hover:shadow-2xl hover:shadow-black/20">
-                <div className="absolute inset-0 bg-gradient-to-br from-warmBrown-700/10 to-transparent"></div>
-                <div className="relative h-[360px] sm:h-[440px] md:h-[520px] w-full">
-                  <Image
-                    src="https://static.yoelweisberg.com/portfilioio-images/AboutMe.jpg"
-                    alt="About Us"
-                    fill
-                    className="object-cover transition-transform duration-500 transform hover:scale-[1.02]"
-                  />
+            <div className="order-2 flex justify-center">
+              <div className="relative mx-auto w-full max-w-[420px]">
+                <div className="absolute inset-[8%] rounded-full bg-gradient-to-br from-warmBrown-400/25 via-transparent to-warmBrown-700/20 blur-3xl"></div>
+                <div className="relative aspect-square overflow-hidden rounded-full border border-white/15 bg-[#243038]/70 p-3 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45)] reveal transition-transform duration-300 hover:scale-[1.01]">
+                  <div className="absolute inset-2 rounded-full border border-white/10"></div>
+                  <div className="relative h-full w-full overflow-hidden rounded-full">
+                    <Image
+                      src="/about.png"
+                      alt="About Us"
+                      fill
+                      className="object-contain p-2 transition-transform duration-500 hover:scale-[1.03]"
+                    />
+                  </div>
                 </div>
-                <div className="absolute -inset-0.5 bg-gradient-to-br from-warmBrown-400/10 to-transparent opacity-50 blur-sm"></div>
               </div>
             </div>
           </div>
