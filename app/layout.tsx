@@ -35,6 +35,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <meta name="facebook-domain-verification" content="x5ymro00lgsak7ssg8s0yb1lmewqk8" />
+      </head>
       <body className={`${inter.className} text-foreground min-h-screen w-full overflow-x-hidden`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <LanguageProvider>
