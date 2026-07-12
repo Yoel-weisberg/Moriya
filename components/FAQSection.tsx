@@ -81,7 +81,7 @@ export const FAQSection: React.FC = () => {
   ];
 
   return (
-    <section className="w-full bg-[#1f2933] text-white py-16 px-4 md:px-8 dir-rtl" dir="rtl">
+    <section id='QNA' className="w-full bg-[#1f2933] text-white py-16 px-4 md:px-8 dir-rtl" dir="rtl">
       <div className="max-w-3xl mx-auto">
         
         {/* כותרת הסקשן */}

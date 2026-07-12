@@ -11,6 +11,7 @@ export type Dictionary = {
     description: string
   }
   navigation: {
+    QNA: string
     home: string
     about: string
     testimonials: string

@@ -9,6 +9,10 @@ const clinicImages = [
   "clinic3.jpg",
   "clinic4.jpg",
   "clinic5.jpg",
+  "clinic6.jpg",
+  "clinic7.jpg",
+  "clinic8.jpg",
+  "clinic9.jpg",
 ]
 
 export default function Gallery() {
