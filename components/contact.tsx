@@ -125,18 +125,24 @@ export default function Contact() {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="mt-2 w-full rounded-2xl border border-white/10 bg-[#11181f] px-4 py-3 text-white outline-none focus:border-warmBrown-500"
+                      dir={locale === "he" ? "rtl" : "ltr"}
+                      className={`mt-2 w-full rounded-2xl border border-white/10 bg-[#11181f] px-4 py-3 text-white outline-none focus:border-warmBrown-500 ${
+                        locale === "he" ? "text-right" : "text-left"
+                      }`}
                       placeholder={locale === "he" ? "הכנס שם" : "Enter your name"}
                     />
                   </label>
                   <label className="block">
-                    <span className="text-sm font-medium text-warmBrown-200">Email</span>
+                  <span className="text-sm font-medium text-warmBrown-200">{locale === "he" ? "אימייל" : "Email"}</span>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="mt-2 w-full rounded-2xl border border-white/10 bg-[#11181f] px-4 py-3 text-white outline-none focus:border-warmBrown-500"
+                      dir={locale === "he" ? "rtl" : "ltr"}
+                      className={`mt-2 w-full rounded-2xl border border-white/10 bg-[#11181f] px-4 py-3 text-white outline-none focus:border-warmBrown-500 ${
+                        locale === "he" ? "text-right" : "text-left"
+                      }`}
                       placeholder={locale === "he" ? "הכנס אימייל" : "Enter your email"}
                     />
                   </label>
@@ -149,7 +155,10 @@ export default function Contact() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="mt-2 w-full rounded-2xl border border-white/10 bg-[#11181f] px-4 py-3 text-white outline-none focus:border-warmBrown-500"
+                    dir={locale === "he" ? "rtl" : "ltr"}
+                    className={`mt-2 w-full rounded-2xl border border-white/10 bg-[#11181f] px-4 py-3 text-white outline-none focus:border-warmBrown-500 ${
+                      locale === "he" ? "text-right" : "text-left"
+                    }`}
                     placeholder={locale === "he" ? "הכנס טלפון" : "Enter your phone"}
                   />
                 </label>
@@ -161,7 +170,12 @@ export default function Contact() {
                     value={formData.message}
                     onChange={handleChange}
                     rows={5}
-                    className="mt-2 w-full rounded-2xl border border-white/10 bg-[#11181f] px-4 py-3 text-white outline-none focus:border-warmBrown-500"
+                    dir={locale === "he" ? "rtl" : "ltr"}
+                    className={
+                      `mt-2 w-full rounded-2xl border border-white/10 bg-[#11181f] px-4 py-3 text-white outline-none focus:border-warmBrown-500 ${
+                        locale === "he" ? "text-right" : "text-left"
+                      }`
+                    }
                     placeholder={locale === "he" ? "הכנס הודעה" : "Enter your message"}
                   />
                 </label>
@@ -177,7 +191,7 @@ export default function Contact() {
                   type="submit"
                   className="inline-flex items-center justify-center rounded-full bg-warmBrown-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-warmBrown-600"
                 >
-                  {locale === "he" ? "שלח" : "Send"}
+                  {locale === "he" ? "לקביעת רגע של מגע לנשמה" : "Send"}
                 </button>
               </form>
             </div>

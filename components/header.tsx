@@ -121,6 +121,13 @@ export default function Header() {
                   >
                     {dict.navigation.contact}
                   </Link>
+                  <Link
+                    href="#QNA"
+                    className="text-base py-2 text-warmBrown-100 hover:text-white transition-colors touch-manipulation flex items-center"
+                    onClick={() => setOpen(false)}
+                  >
+                    {dict.navigation.QNA}
+                  </Link>
 
                   <div className="pt-4 border-t border-warmBrown-700 mt-4">
                     <div className="flex items-center py-2">

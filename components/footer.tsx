@@ -42,7 +42,7 @@ export default function Footer() {
           <p className="text-xs md:text-sm text-warmBrown-300 animate-fade-in text-center">{dict.footer.rights}</p>
 
           <div className="flex gap-4 md:gap-6 animate-slide-in-right">
-            <Link href="#" className="text-warmBrown-300 hover:text-white transition-colors touch-manipulation">
+            <Link href="https://www.facebook.com/share/1DJRjk3Tdu/" className="text-warmBrown-300 hover:text-white transition-colors touch-manipulation">
               <span className="sr-only">Facebook</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +59,7 @@ export default function Footer() {
                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
               </svg>
             </Link>
-            <Link href="#" className="text-warmBrown-300 hover:text-white transition-colors touch-manipulation">
+            <Link href="https://www.instagram.com/moriyaweisberg?igsh=bmwzYnZscXRwdmJz" className="text-warmBrown-300 hover:text-white transition-colors touch-manipulation">
               <span className="sr-only">Instagram</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +78,7 @@ export default function Footer() {
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
               </svg>
             </Link>
-            <Link href="#" className="text-warmBrown-300 hover:text-white transition-colors touch-manipulation">
+            <Link href="https://wa.me/972584615613" className="text-warmBrown-300 hover:text-white transition-colors touch-manipulation">
               <span className="sr-only">WhatsApp</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
