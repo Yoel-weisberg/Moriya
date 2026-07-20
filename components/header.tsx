@@ -63,7 +63,10 @@ export default function Header() {
 
         <nav className="flex items-center gap-6 md:gap-8 md:text-xl font-bold">
           <NavBarElement href="#about" text={dict.navigation.about} scrolled={scrolled} />
+          <NavBarElement href="#certificates" text={dict.navigation.certificates} scrolled={scrolled} />
+          <NavBarElement href="#gallery" text={dict.navigation.gallery} scrolled={scrolled} />
           <NavBarElement href="#testimonials" text={dict.navigation.testimonials} scrolled={scrolled} />
+          <NavBarElement href="#QNA" text={dict.navigation.QNA} scrolled={scrolled} />
           <NavBarElement href="#contact" text={dict.navigation.contact} scrolled={scrolled} />
         </nav>
 
@@ -106,6 +109,20 @@ export default function Header() {
                     onClick={() => setOpen(false)}
                   >
                     {dict.navigation.about}
+                  </Link>
+                  <Link
+                    href="#certificates"
+                    className="text-base py-2 text-warmBrown-100 hover:text-white transition-colors touch-manipulation flex items-center"
+                    onClick={() => setOpen(false)}
+                  >
+                    {dict.navigation.certificates}
+                  </Link>
+                  <Link
+                    href="#gallery"
+                    className="text-base py-2 text-warmBrown-100 hover:text-white transition-colors touch-manipulation flex items-center"
+                    onClick={() => setOpen(false)}
+                  >
+                    {dict.navigation.gallery}
                   </Link>
                   <Link
                     href="#testimonials"
