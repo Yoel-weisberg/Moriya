@@ -37,8 +37,25 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         <meta name="facebook-domain-verification" content="x5ymro00lgsak7ssg8s0yb1lmewqk8" />
+                <Script id="gtm-script" strategy="afterInteractive">
+          {`
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-WLP6P55X');
+          `}
+        </Script>
       </head>
       <body className={`${inter.className} text-foreground min-h-screen w-full overflow-x-hidden`}>
+                <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-WLP6P55X"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <LanguageProvider>
             <Header />
