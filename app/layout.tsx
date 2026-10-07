@@ -43,14 +43,14 @@ export default function RootLayout({
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-WLP6P55X');
+            })(window,document,'script','dataLayer','GTM-KT8TDWMK');
           `}
         </Script>
       </head>
       <body className={`${inter.className} text-foreground min-h-screen w-full overflow-x-hidden`}>
                 <noscript>
           <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-WLP6P55X"
+            src="https://www.googletagmanager.com/ns.html?id=GTM-KT8TDWMK"
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
