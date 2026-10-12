@@ -21,15 +21,12 @@ const createLeadEventId = () => {
   return `lead-${Date.now()}-${Math.random().toString(16).slice(2)}`;
 };
 
+const MAKE_WEBHOOK_URL =
+  process.env.NEXT_PUBLIC_MAKE_WEBHOOK_URL || "https://hook.eu1.make.com/3m7hqha076kg23p902l4ykact28zcpr8";
+
 const sendMakeWebhook = async (payload: Record<string, string | null | undefined>) => {
-  const webhookUrl = process.env.NEXT_PUBLIC_MAKE_WEBHOOK_URL;
-
-  if (!webhookUrl) {
-    return;
-  }
-
   try {
-    const response = await fetch(webhookUrl, {
+    const response = await fetch(MAKE_WEBHOOK_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
