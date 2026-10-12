@@ -18,6 +18,8 @@ export default function Testimonials() {
     "screenshot7.jpg",
     "screenshot8.jpg",
     "screenshot9.jpg",
+    "screenshot10.jpg",
+    "screenshot11.jpg",
   ]
 
   const settings = {
