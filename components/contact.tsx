@@ -6,6 +6,70 @@ import { Phone, Mail } from "lucide-react";
 import { BsWhatsapp } from "react-icons/bs";
 import { useLanguage } from "@/components/language-provider"
 
+const getCookieValue = (name: string) => {
+  if (typeof document === "undefined") return "";
+
+  const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
+  return match ? decodeURIComponent(match[1]) : "";
+};
+
+const createLeadEventId = () => {
+  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
+    return crypto.randomUUID();
+  }
+
+  return `lead-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+};
+
+const sendMakeWebhook = async (payload: Record<string, string | null | undefined>) => {
+  const webhookUrl = process.env.NEXT_PUBLIC_MAKE_WEBHOOK_URL;
+
+  if (!webhookUrl) {
+    return;
+  }
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      console.warn("MAKE webhook request failed", response.status, response.statusText);
+    }
+  } catch (error) {
+    console.error("MAKE webhook request error:", error);
+  }
+};
+
+const trackFbLead = (eventId: string) => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const fbq = (window as typeof window & { fbq?: (...args: unknown[]) => void }).fbq;
+
+  if (!fbq) {
+    return;
+  }
+
+  fbq(
+    "track",
+    "Lead",
+    {
+      content_name: "Contact form",
+      content_category: "lead",
+      value: 0,
+      currency: "ILS",
+    },
+    { eventID: eventId }
+  );
+};
+
 export default function Contact() {
   const { dict, locale } = useLanguage()
   const sectionRef = useRef<HTMLElement>(null);
@@ -36,6 +100,25 @@ export default function Contact() {
     setFormStatus("idle")
 
     const endpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT || "https://formspree.io/f/mgojglol"
+    const eventId = createLeadEventId()
+    const eventTime = new Date().toISOString()
+    const webhookPayload = {
+      name,
+      email,
+      phone,
+      message,
+      date: eventTime,
+      event_id: eventId,
+      event_source_url: typeof window !== "undefined" ? window.location.href : "",
+      event_time: eventTime,
+      fbp: getCookieValue("_fbp") || null,
+      fbc: getCookieValue("_fbc") || null,
+      user_agent: typeof navigator !== "undefined" ? navigator.userAgent : "",
+      ip_address:
+        process.env.NEXT_PUBLIC_ALLOW_CLIENT_IP === "true" && typeof window !== "undefined"
+          ? (window as typeof window & { clientIp?: string }).clientIp ?? null
+          : null,
+    }
 
     try {
       const response = await fetch(endpoint, {
@@ -50,12 +133,18 @@ export default function Contact() {
           phone,
           message,
           _subject: locale === "he" ? "טופס לידים מאתר" : "Lead form submission",
+          event_id: eventId,
+          event_source_url: webhookPayload.event_source_url,
+          event_time: eventTime,
         }),
       })
 
       if (!response.ok) {
         throw new Error("submit failed")
       }
+
+      trackFbLead(eventId)
+      await sendMakeWebhook(webhookPayload)
 
       setFormStatus("success")
       setFormData({ name: "", email: "", phone: "", message: "" })
