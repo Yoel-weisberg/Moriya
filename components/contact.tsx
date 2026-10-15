@@ -43,30 +43,6 @@ const sendMakeWebhook = async (payload: Record<string, string | null | undefined
   }
 };
 
-const trackFbLead = (eventId: string) => {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  const fbq = (window as typeof window & { fbq?: (...args: unknown[]) => void }).fbq;
-
-  if (!fbq) {
-    return;
-  }
-
-  fbq(
-    "track",
-    "Lead",
-    {
-      content_name: "Contact form",
-      content_category: "lead",
-      value: 0,
-      currency: "ILS",
-    },
-    { eventID: eventId }
-  );
-};
-
 export default function Contact() {
   const { dict, locale } = useLanguage()
   const sectionRef = useRef<HTMLElement>(null);
@@ -74,21 +50,37 @@ export default function Contact() {
     name: "",
     email: "",
     phone: "",
-    message: "",
+    contactTime: "",
+    treatmentLocation: "",
   })
   const [formStatus, setFormStatus] = useState<"idle" | "success" | "error">("idle")
   const [formError, setFormError] = useState("")
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const contactTimeOptions = [
+    { value: "morning", label: locale === "he" ? "בוקר" : "Morning" },
+    { value: "afternoon", label: locale === "he" ? "צהריים" : "Afternoon" },
+    { value: "evening", label: locale === "he" ? "ערב" : "Evening" },
+  ]
+
+  const treatmentLocationOptions = [
+    { value: "noked", label: locale === "he" ? "נוקדים" : "Noked" },
+    { value: "clinic_jerusalem", label: locale === "he" ? "הקליניקה בירושלים" : "The clinic in Jerusalem" },
+  ]
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const { name, email, phone, message } = formData
+    const { name, email, phone, contactTime, treatmentLocation } = formData
 
-    if (!name || !phone || !message) {
-      setFormError(locale === "he" ? "אנא מלאי שם, טלפון והודעה." : "Please complete name, phone, and message.")
+    if (!name || !phone || !contactTime || !treatmentLocation) {
+      setFormError(
+        locale === "he"
+          ? "אנא מלאי את כל השדות: שם, טלפון, מתי נוח לך להתקשר ואיפה תרצה טיפול."
+          : "Please complete all fields: name, phone, preferred contact time, and treatment location."
+      )
       setFormStatus("error")
       return
     }
@@ -103,7 +95,8 @@ export default function Contact() {
       name,
       email,
       phone,
-      message,
+      contact_time: contactTime,
+      treatment_location: treatmentLocation,
       date: eventTime,
       event_id: eventId,
       event_source_url: typeof window !== "undefined" ? window.location.href : "",
@@ -128,7 +121,8 @@ export default function Contact() {
           name,
           email,
           phone,
-          message,
+          contact_time: contactTime,
+          treatment_location: treatmentLocation,
           _subject: locale === "he" ? "טופס לידים מאתר" : "Lead form submission",
           event_id: eventId,
           event_source_url: webhookPayload.event_source_url,
@@ -140,11 +134,16 @@ export default function Contact() {
         throw new Error("submit failed")
       }
 
-      trackFbLead(eventId)
       await sendMakeWebhook(webhookPayload)
 
       setFormStatus("success")
-      setFormData({ name: "", email: "", phone: "", message: "" })
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        contactTime: "",
+        treatmentLocation: "",
+      })
     } catch (error) {
       setFormError(
         locale === "he"
@@ -250,20 +249,41 @@ export default function Contact() {
                 </label>
 
                 <label className="block">
-                  <span className="text-sm font-medium text-warmBrown-200">{locale === "he" ? "הודעה" : "Message"}</span>
-                  <textarea
-                    name="message"
-                    value={formData.message}
+                  <span className="text-sm font-medium text-warmBrown-200">{locale === "he" ? "מתי נוח לך שנתקשר?" : "When is a good time to call you?"}</span>
+                  <select
+                    name="contactTime"
+                    value={formData.contactTime}
                     onChange={handleChange}
-                    rows={5}
+                    required
                     dir={locale === "he" ? "rtl" : "ltr"}
-                    className={
-                      `mt-2 w-full rounded-2xl border border-white/10 bg-[#11181f] px-4 py-3 text-white outline-none focus:border-warmBrown-500 ${
-                        locale === "he" ? "text-right" : "text-left"
-                      }`
-                    }
-                    placeholder={locale === "he" ? "הכנס הודעה" : "Enter your message"}
-                  />
+                    className="mt-2 w-full rounded-2xl border border-white/10 bg-[#11181f] px-4 py-3 text-white outline-none focus:border-warmBrown-500"
+                  >
+                    <option value="">{locale === "he" ? "בחר" : "Select"}</option>
+                    {contactTimeOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="block">
+                  <span className="text-sm font-medium text-warmBrown-200">{locale === "he" ? "איפה תרצה את הטיפול?" : "Where would you like treatment?"}</span>
+                  <select
+                    name="treatmentLocation"
+                    value={formData.treatmentLocation}
+                    onChange={handleChange}
+                    required
+                    dir={locale === "he" ? "rtl" : "ltr"}
+                    className="mt-2 w-full rounded-2xl border border-white/10 bg-[#11181f] px-4 py-3 text-white outline-none focus:border-warmBrown-500"
+                  >
+                    <option value="">{locale === "he" ? "בחר" : "Select"}</option>
+                    {treatmentLocationOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
                 </label>
 
                 {formStatus === "error" && (
